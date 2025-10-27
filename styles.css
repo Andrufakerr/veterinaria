@@ -1,0 +1,503 @@
+/* Reset */
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif}
+
+/* Layout */
+body{display:flex;min-height:100vh;background:#ffffff;color:#333}
+.sidebar {
+  width: 220px;
+  background: linear-gradient(to left, #3b0160, #950497);
+  min-height: 100vh;
+  color: #fff;
+  flex-shrink: 0;
+}
+.sidebar .logo{
+  text-align:center;padding:1rem;border-bottom:1px solid #025781;
+}
+.sidebar .logo img{width:200px;}
+.sidebar .menu{list-style:none;padding:1rem;}
+.sidebar .menu li{padding:0.7rem 1rem;cursor:pointer;color:#ccc;}
+.sidebar .menu li:hover,.sidebar .menu li.active{background:#117aaa;color:#ffffff;}
+
+.content{flex-grow:1;display:flex;flex-direction:column;}
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;
+  background:#fff;padding:0.8rem 1.5rem;border-bottom:1px solid #ddd;
+}
+.topbar .top-links a{margin-left:1rem;color:#333;text-decoration:none;font-size:0.9rem;}
+.page{padding:1.5rem;}
+.menu-toggle{display:none;cursor:pointer;}
+
+/* Botones */
+.btn{padding:0.6rem 1.2rem;border:none;border-radius:4px;cursor:pointer;}
+.btn-primary{background:#8f10ff;color:#fff;font-weight:bold;margin-bottom:1rem;}
+.search-box{width:100%;padding:0.6rem;margin:1rem 0;border:1px solid #ccc;border-radius:4px;}
+
+/* Tabla */
+table{width:100%;border-collapse:collapse;background:#fff}
+table th, table td {
+  padding: 0.8rem;
+  border: 1px solid #011c35;  /* Bordes negros */
+  text-align: left;
+}
+table th {
+  background: #a703ff;
+  color: white;
+}
+
+.status{padding:0.2rem 0.5rem;border-radius:3px;font-size:0.85rem;}
+.status.borrowed {
+  background-color: #ff4d4d; /* rojo fuerte */
+  color: #fff;
+}
+
+.status.available {
+  background-color: #28a745; /* verde */
+  color: #fff;
+}
+
+.status.warning {
+  background-color: #f39c12; /* naranja */
+  color: #fff;
+}
+
+
+/* Acciones */
+.actions{display:flex;gap:0.4rem;}
+.btn-icon{
+  border:none;border-radius:4px;padding:0.4rem 0.6rem;cursor:pointer;color:#fff;
+}
+.btn-icon.view{background:#28a745;}  /* verde */
+.btn-icon.edit{background:#17a2b8;}  /* azul */
+.btn-icon.delete{background:#dc3545;} /* rojo */
+
+/* Responsive */
+@media(max-width:768px){
+  .sidebar{display:none;}
+  .menu-toggle{display:block;}
+}
+.editorcaja {
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  width: 600px;             /* 🔹 ancho medio-grande */
+  max-width: 95%;
+  display: block;
+  font-size: 14px;          /* 🔹 letra base normal */
+  color: #134676;
+  margin: auto;
+  border: 3px solid;
+  border-image: linear-gradient(to left, #3b0160, #950497);
+  box-shadow: 0 5px 16px rgba(0,0,0,0.2);
+}
+
+/* título */
+.editorcaja h3 {
+  width: 100%;
+  text-align: center;
+  font-size: 22px;         /* 🔹 título más chico que la versión grande */
+  font-weight: bold;
+  margin: 0 0 16px 0;
+  color: #013a60;
+}
+
+/* fila */
+.editor-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* formulario */
+.editor-row form {
+  flex: 1;
+  text-align: left;
+}
+
+/* foto */
+.foto-container {
+  text-align: center;
+  min-width: 150px;
+}
+
+.foto-container img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  display: block;
+  margin: 0 auto;
+}
+
+/* labels + inputs */
+.editorcaja label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 14px;         /* 🔹 letra de antes */
+}
+
+.editorcaja input,
+.editorcaja select,
+.editorcaja textarea {
+  border: 1px solid #555;
+  border-radius: 5px;
+  padding: 7px;
+  width: 100%;
+  margin-bottom: 7px;
+  font-size: 14px;         /* 🔹 letra de antes */
+  box-sizing: border-box;
+}
+
+/* botones */
+.editorcaja button {
+  margin: 7px 5px;
+  padding: 7px 14px;
+  font-size: 14px;         /* 🔹 letra normal */
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.topbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:linear-gradient(to left, #950497, #3b0160);  
+  padding:0.8rem 1.5rem;
+  border-bottom:1px solid #ddd;
+  color:#fff;           /* texto blanco para contraste */
+}
+.menu li a {
+  display: block;       /* que ocupe todo el li */
+  width: 100%;          /* ancho completo */
+  height: 100%;         /* alto completo */
+  color: inherit;       /* que no cambie el color */
+  text-decoration: none;/* sin subrayado */
+  padding: 0.7rem 1rem; /* mismo padding que li */
+}
+.error-box {
+    background: #ffdddd;
+    color: #a94442;
+    border: 1px solid #a94442;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: center;
+}
+/*modooscuro*/
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode .sidebar {
+  background-color: #1e1e1e;
+}
+
+body.dark-mode .content {
+  background-color: #1a1a1a;
+}
+
+body.dark-mode table {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .editorcaja {
+  background: #2b2b2b;
+  color: #fff;
+}
+
+body.dark-mode input,
+body.dark-mode select {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #666;
+}
+
+body.dark-mode .btn-primary {
+  background-color: #0d6efd;
+  border: none;
+}
+
+body.dark-mode .btn {
+  background-color: #444;
+  color: #fff;
+}
+.boton {
+  display: block;
+  text-align: center;
+  padding: 15px;
+  background: linear-gradient(to left, #3b0160, #950497);
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.boton:hover {
+  background: linear-gradient(to left, #3b0160, #950497);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+/* ======== MODAL (centrado y con fondo difuminado) ======== */
+.modal {
+  display: none; /* oculto por defecto */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* fondo oscuro */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Mostrar modal cuando tiene la clase "active" */
+.modal.active {
+  display: flex;
+}
+
+/* Contenedor interno (usa tu caja de edición existente) */
+.modal .editorcaja {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 600px;
+  max-width: 95%;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  animation: fadeInUp 0.25s ease;
+}
+
+/* Animación sutil de entrada */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* 🔹 Asegura que todas las celdas de la tabla tengan el mismo tamaño */
+.tabla-turnos {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* <-- clave */
+}
+
+.tabla-turnos th,
+.tabla-turnos td {
+  border: 1px solid #ccc;
+  text-align: center;
+  padding: 8px;
+  white-space: nowrap; /* evita salto de línea */
+  overflow: hidden;    /* oculta texto que no entra */
+  text-overflow: ellipsis; /* pone "..." si el texto es largo */
+  height: 60px; /* altura fija para que todas las filas midan igual */
+}
+
+/* 🔹 Si querés que cada columna tenga un ancho fijo */
+/* DUEÑO */
+.tabla-turnos th:nth-child(1),
+.tabla-turnos td:nth-child(1) { width: 140px; }
+
+/* PERRO */
+.tabla-turnos th:nth-child(2),
+.tabla-turnos td:nth-child(2) { width: 120px; }
+
+/* TELÉFONO */
+.tabla-turnos th:nth-child(3),
+.tabla-turnos td:nth-child(3) { width: 120px; }
+
+/* SERVICIO */
+.tabla-turnos th:nth-child(4),
+.tabla-turnos td:nth-child(4) { width: 140px; }
+
+/* HORARIO */
+.tabla-turnos th:nth-child(5),
+.tabla-turnos td:nth-child(5) { width: 100px; }
+
+/* TURNO (fecha_turno) */
+.tabla-turnos th:nth-child(6),
+.tabla-turnos td:nth-child(6) { width: 120px; }
+
+/* TIPO DE PAGO */
+.tabla-turnos th:nth-child(7),
+.tabla-turnos td:nth-child(7) { width: 120px; }
+
+/* NOTAS → más ancha */
+.tabla-turnos th:nth-child(8),
+.tabla-turnos td:nth-child(8) { width: 200px; }
+
+/* FOTO */
+.tabla-turnos th:nth-child(9),
+.tabla-turnos td:nth-child(9) { width: 80px; }
+
+/* ACCIONES → más angosta */
+.tabla-turnos th:nth-child(10),
+.tabla-turnos td:nth-child(10) { width: 100px; }
+
+/* 🔹 Evita que la tabla se deforme en pantallas chicas */
+/* 🔽 Hace que el formulario tenga barra si es muy largo */
+.scroll-form {
+  max-height: 80vh;       /* ocupa hasta el 80% del alto visible */
+  overflow-y: auto;       /* activa la barra vertical */
+  padding-right: 10px;    /* evita que el scroll tape los campos */
+  scrollbar-width: thin;  /* scroll finito (Firefox) */
+}
+
+/* 🎨 Estética moderna del scroll */
+.scroll-form::-webkit-scrollbar {
+  width: 8px;
+}
+.scroll-form::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+.scroll-form::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Centrado del contenido general del modal */
+.editorcaja {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* Centrar imagen */
+#preview_foto_actual {
+  display: block;
+  margin: 0 auto;
+}
+/* ======= MÓVIL ======= */
+@media (max-width: 768px) {
+  /* Ocultar sidebar */
+  .sidebar {
+    display: none;
+  }
+
+  /* Botón nuevo turno fijo abajo */
+  #btnNuevoTurno {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    z-index: 999;
+    padding: 15px 20px;
+    font-size: 18px;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+
+  /* Ajuste topbar */
+  .topbar h2 {
+    font-size: 18px;
+  }
+
+  /* Tabla scrollable horizontal */
+  .tabla-turnos {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+/* ======= MÓVIL ======= */
+/* ======= MÓVIL ======= */
+@media (max-width:768px){
+  /* Ocultar sidebar */
+  .sidebar {
+    display: none;
+  }
+
+  /* Mostrar logo arriba en topbar */
+  .logo-movil {
+    display: block;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  /* Ajuste topbar */
+  .topbar {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+  }
+  .topbar h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  /* Tabla scrollable */
+  .tabla-turnos {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 16px;
+  }
+
+  .tabla-turnos th, .tabla-turnos td {
+    padding: 12px;
+    min-width: 120px;
+  }
+
+  /* Botón fijo abajo */
+  #btnNuevoTurno {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    padding: 18px 24px;
+    font-size: 20px;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    background: linear-gradient(to left, #3b0160, #950497);
+  }
+
+  /* Modal inputs más grandes */
+  .editorcaja input,
+  .editorcaja select,
+  .editorcaja textarea,
+  .editorcaja button {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  /* Modal ancho completo */
+  .editorcaja {
+    width: 95%;
+    max-width: 95%;
+  }
+}
+
+/* Por defecto, ocultar logo-movil en escritorio */
+.logo-movil {
+  display: none;
+}
+.turno{
+      position: fixed;
+      bottom:20px;
+      right:20px;
+      z-index:999;
+      padding:15px 20px;
+      font-size:18px;
+      border-radius:50px;
+      background: linear-gradient(to left, #3b0160,#950497);
+      color:#fff;
+      font-weight:bold;
+      text-decoration:none;
+      text-align:center;
+      box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    
+}
