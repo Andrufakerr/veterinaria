@@ -4,74 +4,500 @@
   <meta charset="UTF-8">
   <title>Turnos Veterinaria</title>
   <link rel="stylesheet" href="styles.css">
+
   <style>
-    
-  /* Contenedor del logo y hora */
-  #header {
+    /* === ESTILOS GENERALES === */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+       background: linear-gradient(135deg, #6a00b6, #9500ff, #e969cb);
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    /* === SECCIÓN PRINCIPAL === */
+    .info-vet {
+      max-width: 600px;
+      width: 100%;
+      background: white;
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      animation: fadeIn 0.8s ease;
+    }
+
+    .info-vet h1 {
+      color: #6a00b6;
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    .info-vet p {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+
+    .info-vet strong {
+      color: #333;
+    }
+
+    .btn-turno {
+      display: inline-block;
+      background: linear-gradient(135deg, #6a00b6, #9500ff);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-size: 1.2em;
+      text-decoration: none;
+      margin-top: 20px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-turno:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* === MODAL === */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .editorcaja {
+      background: white;
+      width: 100%;
+      max-width: 500px;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      overflow-y: auto;
+      max-height: 90vh;
+      text-align: left;
+      animation: slideUp 0.4s ease;
+    }
+
+    .editorcaja h3 {
+      text-align: center;
+      color: #6a00b6;
+      margin-bottom: 20px;
+    }
+
+    form label {
+      font-weight: bold;
+      display: block;
+      margin-top: 10px;
+    }
+
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+
+    form textarea {
+      resize: none;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #6a00b6;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+
+    .btn {
+      background: #ccc;
+      color: #333;
+      padding: 10px 20px;
+      border-radius: 10px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      .info-vet h1 {
+        font-size: 1.6em;
+      }
+      .info-vet p {
+        font-size: 1em;
+      }
+      .btn-turno {
+        font-size: 1em;
+        width: 100%;
+      }
+    }
+/* === Ajuste general del logo === */
+.info-vet img {
+  width: 100%;
+  max-width: 250px;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px auto;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+/* === Ajustes responsive fuertes === */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  .info-vet {
+    max-width: 100%;
+    width: 95%;
+    padding: 25px 15px;
+    border-radius: 20px;
+  }
+
+  /* Logo más grande y centrado */
+  .info-vet img {
+    max-width: 80%;
+    margin-bottom: 25px;
+  }
+
+  /* Títulos más grandes */
+  .info-vet h1 {
+    font-size: 2.2em;
+    line-height: 1.3;
+  }
+
+  .info-vet p {
+    font-size: 1.3em;
+  }
+
+  /* Botón grande y táctil */
+  .btn-turno {
+    font-size: 1.4em;
+    padding: 18px 25px;
+    border-radius: 50px;
     width: 100%;
-    background: linear-gradient(to right, #3b0160, #950497);
-    color: #fff;
-    text-align: center;
-    padding: 20px 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-    font-family: Arial, sans-serif;
   }
 
-  #header img {
-    width: 400px;
-    max-width: 50%;
+  /* Modal agrandado */
+  .editorcaja {
+    max-width: 95%;
+    width: 95%;
+    padding: 25px;
+    border-radius: 18px;
+  }
+
+  .editorcaja h3 {
+    font-size: 1.8em;
+    margin-bottom: 25px;
+  }
+
+  form label {
+    font-size: 1.3em;
+  }
+
+  form input,
+  form select,
+  form textarea {
+    font-size: 1.3em;
+    padding: 14px;
+    border-radius: 10px;
+  }
+
+  .btn-primary,
+  .btn {
+    font-size: 1.3em;
+    padding: 14px 22px;
+    border-radius: 12px;
+  }
+}
+/* =========================
+   OVERRIDES: MAXIMIZAR EN MÓVIL
+   Pegar al final de tu CSS
+   ========================= */
+
+/* asegurarnos que el botón principal sea grande en todo */
+#btnNuevoTurno.btn-turno {
+  z-index: 10000;
+}
+
+/* estilos generales escalables */
+:root{
+  --ui-font-small: 16px;
+  --ui-font-medium: 20px;
+  --ui-font-large: 24px;
+  --ui-gap: 14px;
+}
+
+/* Imagen dentro de la card: ocupa ancho y mantiene proporción */
+.info-vet img {
+  width: 100%;
+  max-width: 420px;     /* en escritorio no crecerá demasiado */
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
+  object-fit: contain;
+}
+
+/* === EN MÓVIL: FORZAR TODO AL MÁXIMO === */
+@media (max-width: 900px) {
+
+  /* cuerpo: algo de padding para que no pegue contra bordes */
+  body {
+    padding: 8px;
+  }
+
+  /* card principal ocupa casi toda la pantalla (centrada) */
+  .info-vet {
+    width: 100%;
+    max-width: 100%;
+    padding: 28px;
+    border-radius: 16px;
+  }
+
+  .info-vet img {
+    max-width: 92%;
+    margin-bottom: 20px;
+  }
+
+  /* texto grande y legible */
+  .info-vet h1 { font-size: clamp(20px, 6.5vw, 34px); line-height: 1.05; }
+  .info-vet p  { font-size: clamp(16px, 4.5vw, 20px); margin-bottom: 8px; }
+
+  /* botón principal: full width, grande y fijo si hace falta */
+  .btn-turno {
     display: block;
-    margin: 0 auto 10px auto;
+    width: 100%;
+    font-size: clamp(18px, 6vw, 26px);
+    padding: 16px 18px;
+    border-radius: 12px;
   }
 
-  #horaFecha {
+  /* HACER EL MODAL A PANTALLA COMPLETA (estilo bottom sheet) */
+  .modal {
+    align-items: flex-end;      /* se adhiere al fondo */
+    background-color: rgba(0,0,0,0.55);
+  }
+
+  .modal.active {
+    display: flex;
+  }
+
+  /* editorcaja: ocupa casi toda la pantalla y se comporta como app nativa */
+  .modal .editorcaja {
+    width: 100%;
+    max-width: 100%;
+    height: calc(100vh - 10px); /* casi pantalla completa */
+    max-height: calc(100vh - 10px);
+    border-radius: 16px 16px 0 0;
+    margin: 0;
+    padding: 22px;
+    box-shadow: 0 -6px 24px rgba(0,0,0,0.35);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* H3 grande */
+  .editorcaja h3 {
+    text-align: center;
+    font-size: clamp(18px, 6vw, 28px);
+    margin-bottom: 18px;
+  }
+
+  /* Inputs, selects y textarea más grandes y con más padding */
+  .editorcaja input,
+  .editorcaja select,
+  .editorcaja textarea {
+    font-size: clamp(16px, 4.5vw, 20px);
+    padding: 14px 12px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+
+  /* Aumentar altura del textarea */
+  .editorcaja textarea { min-height: 110px; }
+
+  /* Labels más grandes */
+  .editorcaja label { font-size: clamp(15px, 4.2vw, 18px); margin-top: 10px; }
+
+  /* Botones grandes y full width en móvil */
+  .editorcaja .btn-primary,
+  .editorcaja .btn {
+    display: block;
+    width: 100%;
+    font-size: clamp(16px, 4.5vw, 20px);
+    padding: 14px;
+    margin-top: 8px;
+    border-radius: 12px;
+  }
+
+  /* Botones contenedores: guardar y cancelar uno debajo del otro */
+  .editorcaja .actions-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* Si tenés contenedor de botones inline, forzamos cambio a vertical */
+  .editorcaja [style*="display:flex;"][style*="justify-content:space-between;"]{
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  /* Botón flotante (opcional): asegurar no tape elementos */
+  #btnNuevoTurno {
+    position: fixed;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 36px);
+    max-width: 720px;
+    z-index: 12000;
+    padding: 16px;
+    font-size: clamp(18px, 5.5vw, 26px);
+    border-radius: 14px;
+  }
+
+  /* Espacio extra para evitar que el teclado tape inputs (iOS/Android) */
+  .modal .editorcaja:focus-within {
+    padding-bottom: 120px;
+  }
+
+  /* Aumentar contrastes y click targets */
+  .editorcaja input:focus, .editorcaja select:focus, .editorcaja textarea:focus {
+    outline: 3px solid rgba(106,0,182,0.12);
+  }
+}
+
+/* === Para pantallas muy pequeñas (<=420px) empujamos aún más === */
+@media (max-width: 420px) {
+  .editorcaja input,
+  .editorcaja select,
+  .editorcaja textarea {
     font-size: 18px;
-    font-weight: bold;
+    padding: 16px;
   }
+  .editorcaja h3 { font-size: 22px; }
+  .btn-turno { font-size: 20px; padding: 16px; }
+}
 
-  /* Móvil */
-  @media(max-width:768px){
-    #header img {
-      width: 140px;
-    }
-    #horaFecha {
-      font-size:16px;
-    }
+.whatsapp-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 8px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.whatsapp-line img {
+  width: 22px;
+  height: 22px;
+  margin: 0%;
+}
+
+.whatsapp-line strong {
+  font-size: 1.1em;
+  color: #333;
+}
+
+.whatsapp-line a {
+  font-size: 1.2em;
+  color: #128C7E;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.whatsapp-line a:hover {
+  transform: scale(1.05);
+}
+
+.whatsapp-number a {
+  display: inline-block;
+  font-size: 1.2em;
+  color: #128C7E;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+}
+
+.whatsapp-number a:hover {
+  transform: scale(1.05);
+}
+
+/* Ajuste en móviles: centrado y más grande */
+@media (max-width: 600px) {
+  .whatsapp-line strong {
+    font-size: 1.3em;
   }
-
+  .whatsapp-number a {
+    font-size: 1.4em;
+  }
+}
   </style>
 </head>
 <body>
-  <!-- 🟣 Sidebar -->
 
-<a href="#" id="btnNuevoTurno" class="turno">➕ Nuevo Turno</a>
-  <!-- 🟢 Contenido -->
-  <main class="content">
-    <div class="topbar">
-    </div>
-<div id="header">
-  <img src="imagenes/logo.png" alt="Logo" id="logoGym">
+ 
+  <section class="info-vet">
+    
+  <img src="imagenes/logo.png">
+
+     
+    <h1>El chico de los Perros Veterinaria</h1>
+    <p><strong>Horario:</strong> Abierto de 15:00 a 22:00</p>
+<div class="whatsapp-section">
+  <div class="whatsapp-line">
+    <img src="imagenes/wsp.png" alt="WhatsApp">
+    <strong>Número de WhatsApp</strong>
+  
+  <div class="whatsapp-number">
+    <a href="https://wa.me/543804928424" target="_blank">3804928424</a>
+ 
 </div>
-    <section class="page">
-      <table class="tabla-turnos">
-        <thead>
-          <tr>
-            <th>Dueño</th>
-            <th>Perro</th>
-            <th>Teléfono</th>
-            <th>Servicio</th>
-            <th>Hora</th>
-            <th>Fecha</th>
-            <th>Notas</th>
-          </tr>
-        </thead>
-        <tbody id="lista"></tbody>
-      </table>
-    </section>
-  </main>
+</div>
+
+
+    <a href="#" id="btnNuevoTurno" class="btn-turno">📅 Solicitar Turno</a>
+  </section>
 
   <!-- 🔵 MODAL NUEVO TURNO -->
   <div id="modalTurno" class="modal">
@@ -89,11 +515,18 @@
 
         <label>Servicio:</label>
         <select id="servicio" required>
-          <option value="">Seleccionar...</option>
+          <option value="Todos">Todos</option>
           <option value="Deslanados">Deslanados</option>
           <option value="Baños sanitarios">Baños sanitarios</option>
           <option value="Corte de uñas">Corte de uñas</option>
           <option value="Peluquería general">Peluquería general</option>
+        </select>
+
+        <label>Tipo de pago:</label>
+        <select id="tipo_pago" required>
+          <option value="No definido">No definido</option>
+          <option value="Efectivo">Efectivo</option>
+          <option value="Transferencia">Transferencia</option>
         </select>
 
         <label>Fecha del Turno:</label>
@@ -110,10 +543,11 @@
         <label>Notas:</label>
         <textarea id="notas" rows="3"></textarea>
 
-        <div style="margin-top:15px; display:flex; justify-content:space-between;">
-          <button type="submit" class="btn-primary">Guardar</button>
-          <button type="button" id="btnCancelar" class="btn">Cancelar</button>
-        </div>
+        <div class="actions-row" style="margin-top:10px;">
+  <button type="submit" class="btn-primary">Guardar</button>
+  <button type="button" id="btnCancelar" class="btn">Cancelar</button>
+</div>
+
       </form>
     </div>
   </div>
@@ -121,7 +555,7 @@
   <!-- 🟨 Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-    import { getDatabase, ref, push, onValue, query, orderByChild } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
+    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
 
     // Configuración Firebase
     const firebaseConfig = {
@@ -134,7 +568,6 @@
       databaseURL: "https://veterinaria-28331-default-rtdb.firebaseio.com"
     };
 
-    // Inicializar Firebase
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
@@ -143,9 +576,8 @@
     const btnNuevoTurno = document.getElementById("btnNuevoTurno");
     const btnCancelar = document.getElementById("btnCancelar");
     const form = document.getElementById("formTurno");
-    const lista = document.getElementById("lista");
 
-    // Abrir y cerrar modal
+    // Abrir / cerrar modal
     btnNuevoTurno.onclick = () => modal.classList.add("active");
     btnCancelar.onclick = () => modal.classList.remove("active");
     window.onclick = e => { if (e.target === modal) modal.classList.remove("active"); };
@@ -159,18 +591,17 @@
         perro: document.getElementById("perro").value.trim(),
         telefono: document.getElementById("telefono").value.trim(),
         servicio: document.getElementById("servicio").value,
+        tipo_pago: document.getElementById("tipo_pago").value,
         fecha: document.getElementById("fecha").value,
         hora: document.getElementById("hora").value,
         notas: document.getElementById("notas").value.trim()
       };
 
-      // Validación rápida
       if (!turno.dueño || !turno.perro || !turno.fecha || !turno.hora) {
         alert("Por favor completa todos los campos obligatorios.");
         return;
       }
 
-      // Evitar duplicados (misma fecha y hora)
       const refTurnos = ref(db, "turnos");
       let duplicado = false;
 
@@ -190,44 +621,9 @@
           form.reset();
           modal.classList.remove("active");
         }
-      }, 500);
+      }, 400);
     });
-
-    // Mostrar todos los turnos ordenados por fecha y hora
-    // 🔹 Traer todos los turnos
-onValue(ref(db, "turnos"), snapshot => {
-  lista.innerHTML = "";
-  const data = [];
-
-  snapshot.forEach(child => {
-    const t = child.val();
-    data.push(t);
-  });
-
-  // Ordenar por fecha + hora en JS
-  data.sort((a, b) => {
-    const fechaHoraA = a.fecha + a.hora;
-    const fechaHoraB = b.fecha + b.hora;
-    return fechaHoraA.localeCompare(fechaHoraB);
-  });
-
-  // Imprimir en tabla
-  data.forEach(t => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${t.dueño}</td>
-      <td>${t.perro}</td>
-      <td>${t.telefono}</td>
-      <td>${t.servicio}</td>
-      <td>${t.hora}</td>
-      <td>${t.fecha}</td>
-      <td>${t.notas || ""}</td>
-    `;
-    lista.appendChild(tr);
-  });
-});
-
   </script>
-  
 </body>
 </html>
+
