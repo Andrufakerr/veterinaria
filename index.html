@@ -1,461 +1,110 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <link rel="icon" type="image/x-icon" href="imagenes/icono.ico">
   <meta charset="UTF-8">
   <title>Turnos Veterinaria</title>
-  <link rel="stylesheet" href="styles.css">
+<style>
+/* === RESETEO GENERAL === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  <style>
-    /* === ESTILOS GENERALES === */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-       background: linear-gradient(135deg, #6a00b6, #9500ff, #e969cb);
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #6a00b6, #9500ff, #e969cb);
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
 
-    /* === SECCIÓN PRINCIPAL === */
-    .info-vet {
-      max-width: 600px;
-      width: 100%;
-      background: white;
-      padding: 30px 20px;
-      border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      animation: fadeIn 0.8s ease;
-    }
+/* === CONTENEDOR PRINCIPAL === */
+.info-vet {
+  background: white;
+  width: 100%;
+  max-width: 600px;
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  animation: fadeIn 0.6s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 
-    .info-vet h1 {
-      color: #6a00b6;
-      font-size: 2em;
-      margin-bottom: 10px;
-    }
-
-    .info-vet p {
-      font-size: 1.1em;
-      margin-bottom: 10px;
-    }
-
-    .info-vet strong {
-      color: #333;
-    }
-
-    .btn-turno {
-      display: inline-block;
-      background: linear-gradient(135deg, #6a00b6, #9500ff);
-      color: white;
-      padding: 12px 25px;
-      border-radius: 50px;
-      font-size: 1.2em;
-      text-decoration: none;
-      margin-top: 20px;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .btn-turno:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
-    /* === MODAL === */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.6);
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .editorcaja {
-      background: white;
-      width: 100%;
-      max-width: 500px;
-      border-radius: 15px;
-      padding: 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      overflow-y: auto;
-      max-height: 90vh;
-      text-align: left;
-      animation: slideUp 0.4s ease;
-    }
-
-    .editorcaja h3 {
-      text-align: center;
-      color: #6a00b6;
-      margin-bottom: 20px;
-    }
-
-    form label {
-      font-weight: bold;
-      display: block;
-      margin-top: 10px;
-    }
-
-    form input, form select, form textarea {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1em;
-    }
-
-    form textarea {
-      resize: none;
-    }
-
-    button {
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: #6a00b6;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 10px;
-    }
-
-    .btn {
-      background: #ccc;
-      color: #333;
-      padding: 10px 20px;
-      border-radius: 10px;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 600px) {
-      .info-vet h1 {
-        font-size: 1.6em;
-      }
-      .info-vet p {
-        font-size: 1em;
-      }
-      .btn-turno {
-        font-size: 1em;
-        width: 100%;
-      }
-    }
-/* === Ajuste general del logo === */
 .info-vet img {
   width: 100%;
-  max-width: 250px;
+  max-width: 240px;
   height: auto;
-  display: block;
-  margin: 0 auto 20px auto;
-  border-radius: 10px;
-  object-fit: contain;
+  margin-bottom: 10px;
 }
 
-/* === Ajustes responsive fuertes === */
-@media (max-width: 768px) {
-  body {
-    padding: 10px;
-  }
-
-  .info-vet {
-    max-width: 100%;
-    width: 95%;
-    padding: 25px 15px;
-    border-radius: 20px;
-  }
-
-  /* Logo más grande y centrado */
-  .info-vet img {
-    max-width: 80%;
-    margin-bottom: 25px;
-  }
-
-  /* Títulos más grandes */
-  .info-vet h1 {
-    font-size: 2.2em;
-    line-height: 1.3;
-  }
-
-  .info-vet p {
-    font-size: 1.3em;
-  }
-
-  /* Botón grande y táctil */
-  .btn-turno {
-    font-size: 1.4em;
-    padding: 18px 25px;
-    border-radius: 50px;
-    width: 100%;
-  }
-
-  /* Modal agrandado */
-  .editorcaja {
-    max-width: 95%;
-    width: 95%;
-    padding: 25px;
-    border-radius: 18px;
-  }
-
-  .editorcaja h3 {
-    font-size: 1.8em;
-    margin-bottom: 25px;
-  }
-
-  form label {
-    font-size: 1.3em;
-  }
-
-  form input,
-  form select,
-  form textarea {
-    font-size: 1.3em;
-    padding: 14px;
-    border-radius: 10px;
-  }
-
-  .btn-primary,
-  .btn {
-    font-size: 1.3em;
-    padding: 14px 22px;
-    border-radius: 12px;
-  }
-}
-/* =========================
-   OVERRIDES: MAXIMIZAR EN MÓVIL
-   Pegar al final de tu CSS
-   ========================= */
-
-/* asegurarnos que el botón principal sea grande en todo */
-#btnNuevoTurno.btn-turno {
-  z-index: 10000;
+.info-vet h1 {
+  color: #6a00b6;
+  font-size: clamp(1.6rem, 5vw, 2.3rem);
+  line-height: 1.2;
 }
 
-/* estilos generales escalables */
-:root{
-  --ui-font-small: 16px;
-  --ui-font-medium: 20px;
-  --ui-font-large: 24px;
-  --ui-gap: 14px;
+.info-vet p {
+  font-size: clamp(1rem, 4vw, 1.3rem);
+  margin-bottom: 6px;
 }
 
-/* Imagen dentro de la card: ocupa ancho y mantiene proporción */
-.info-vet img {
-  width: 100%;
-  max-width: 420px;     /* en escritorio no crecerá demasiado */
-  height: auto;
-  display: block;
-  margin: 0 auto 20px;
-  object-fit: contain;
+/* === BOTÓN DE TURNOS FIJO === */
+.btn-turno {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #6a00b6, #9500ff);
+  color: white;
+  padding: 14px 28px; /* 🔹 más chico en PC */
+  font-size: 1.1rem;
+  border-radius: 40px;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  z-index: 2000;
 }
 
-/* === EN MÓVIL: FORZAR TODO AL MÁXIMO === */
-@media (max-width: 900px) {
 
-  /* cuerpo: algo de padding para que no pegue contra bordes */
-  body {
-    padding: 8px;
-  }
-
-  /* card principal ocupa casi toda la pantalla (centrada) */
-  .info-vet {
-    width: 100%;
-    max-width: 100%;
-    padding: 28px;
-    border-radius: 16px;
-  }
-
-  .info-vet img {
-    max-width: 92%;
-    margin-bottom: 20px;
-  }
-
-  /* texto grande y legible */
-  .info-vet h1 { font-size: clamp(20px, 6.5vw, 34px); line-height: 1.05; }
-  .info-vet p  { font-size: clamp(16px, 4.5vw, 20px); margin-bottom: 8px; }
-
-  /* botón principal: full width, grande y fijo si hace falta */
-  .btn-turno {
-    display: block;
-    width: 100%;
-    font-size: clamp(18px, 6vw, 26px);
-    padding: 16px 18px;
-    border-radius: 12px;
-  }
-
-  /* HACER EL MODAL A PANTALLA COMPLETA (estilo bottom sheet) */
-  .modal {
-    align-items: flex-end;      /* se adhiere al fondo */
-    background-color: rgba(0,0,0,0.55);
-  }
-
-  .modal.active {
-    display: flex;
-  }
-
-  /* editorcaja: ocupa casi toda la pantalla y se comporta como app nativa */
-  .modal .editorcaja {
-    width: 100%;
-    max-width: 100%;
-    height: calc(100vh - 10px); /* casi pantalla completa */
-    max-height: calc(100vh - 10px);
-    border-radius: 16px 16px 0 0;
-    margin: 0;
-    padding: 22px;
-    box-shadow: 0 -6px 24px rgba(0,0,0,0.35);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* H3 grande */
-  .editorcaja h3 {
-    text-align: center;
-    font-size: clamp(18px, 6vw, 28px);
-    margin-bottom: 18px;
-  }
-
-  /* Inputs, selects y textarea más grandes y con más padding */
-  .editorcaja input,
-  .editorcaja select,
-  .editorcaja textarea {
-    font-size: clamp(16px, 4.5vw, 20px);
-    padding: 14px 12px;
-    border-radius: 12px;
-    margin-bottom: 12px;
-  }
-
-  /* Aumentar altura del textarea */
-  .editorcaja textarea { min-height: 110px; }
-
-  /* Labels más grandes */
-  .editorcaja label { font-size: clamp(15px, 4.2vw, 18px); margin-top: 10px; }
-
-  /* Botones grandes y full width en móvil */
-  .editorcaja .btn-primary,
-  .editorcaja .btn {
-    display: block;
-    width: 100%;
-    font-size: clamp(16px, 4.5vw, 20px);
-    padding: 14px;
-    margin-top: 8px;
-    border-radius: 12px;
-  }
-
-  /* Botones contenedores: guardar y cancelar uno debajo del otro */
-  .editorcaja .actions-row {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  /* Si tenés contenedor de botones inline, forzamos cambio a vertical */
-  .editorcaja [style*="display:flex;"][style*="justify-content:space-between;"]{
-    flex-direction: column !important;
-    align-items: stretch !important;
-  }
-
-  /* Botón flotante (opcional): asegurar no tape elementos */
-  #btnNuevoTurno {
-    position: fixed;
-    bottom: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: calc(100% - 36px);
-    max-width: 720px;
-    z-index: 12000;
-    padding: 16px;
-    font-size: clamp(18px, 5.5vw, 26px);
-    border-radius: 14px;
-  }
-
-  /* Espacio extra para evitar que el teclado tape inputs (iOS/Android) */
-  .modal .editorcaja:focus-within {
-    padding-bottom: 120px;
-  }
-
-  /* Aumentar contrastes y click targets */
-  .editorcaja input:focus, .editorcaja select:focus, .editorcaja textarea:focus {
-    outline: 3px solid rgba(106,0,182,0.12);
-  }
-}
-
-/* === Para pantallas muy pequeñas (<=420px) empujamos aún más === */
-@media (max-width: 420px) {
-  .editorcaja input,
-  .editorcaja select,
-  .editorcaja textarea {
-    font-size: 18px;
-    padding: 16px;
-  }
-  .editorcaja h3 { font-size: 22px; }
-  .btn-turno { font-size: 20px; padding: 16px; }
-}
-
+/* === WHATSAPP === */
 .whatsapp-line {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-top: 8px;
-  margin-bottom: 6px;
+  margin: 12px 0;
   flex-wrap: wrap;
 }
 
 .whatsapp-line img {
-  width: 22px;
-  height: 22px;
-  margin: 0%;
+  width: 28px;
+  height: 28px;
 }
 
 .whatsapp-line strong {
-  font-size: 1.1em;
+  font-size: clamp(1.1rem, 4vw, 1.3rem);
   color: #333;
 }
 
-.whatsapp-line a {
-  font-size: 1.2em;
-  color: #128C7E;
-  text-decoration: none;
-  font-weight: bold;
-  transition: transform 0.2s ease;
-}
-
-.whatsapp-line a:hover {
-  transform: scale(1.05);
-}
-
 .whatsapp-number a {
-  display: inline-block;
-  font-size: 1.2em;
   color: #128C7E;
-  text-decoration: none;
   font-weight: bold;
+  font-size: clamp(1.2rem, 4.5vw, 1.4rem);
+  text-decoration: none;
   transition: transform 0.2s ease;
 }
 
@@ -463,27 +112,193 @@
   transform: scale(1.05);
 }
 
-/* Ajuste en móviles: centrado y más grande */
-@media (max-width: 600px) {
-  .whatsapp-line strong {
-    font-size: 1.3em;
+/* === MAPA === */
+iframe {
+  width: 100%;
+  height: 250px;
+  border: none;
+  border-radius: 12px;
+  margin-top: 10px;
+}
+
+/* === MODAL === */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.55);
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.editorcaja {
+  background: white;
+  width: 95%;
+  max-width: 750px;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+  overflow-y: auto;
+  max-height: 90vh;
+  animation: slideUp 0.4s ease;
+}
+
+.editorcaja h3 {
+  color: #6a00b6;
+  font-size: clamp(1.4rem, 5vw, 1.8rem);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: clamp(1rem, 4vw, 1.2rem);
+}
+
+form input,
+form select,
+form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: clamp(1rem, 4vw, 1.2rem);
+}
+
+form textarea {
+  resize: none;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #6a00b6;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: clamp(1rem, 4vw, 1.2rem);
+}
+
+.btn {
+  background: #ccc;
+  color: #333;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: clamp(1rem, 4vw, 1.2rem);
+}
+
+.actions-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* === ANIMACIONES === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* === MÓVILES GRANDES Y PEQUEÑOS === */
+/* === MÓVILES GRANDES Y PEQUEÑOS === */
+@media (max-width: 1000px) {
+  html { font-size: 22px; } /* 🔹 texto base más grande */
+  body { padding: 8px; }
+
+  .info-vet {
+    padding: 40px 22px;
+    width: 100%;
+    max-width: 100%;
   }
+
+  .info-vet h1 {
+    font-size: 2.5rem;
+  }
+
+  .info-vet p {
+    font-size: 1.6rem;
+  }
+
+  .whatsapp-line strong,
   .whatsapp-number a {
-    font-size: 1.4em;
+    font-size: 1.7rem;
+  }
+
+  iframe {
+    height: 340px;
+  }
+
+  /* 🔹 Botón GIGANTE en celular */
+  .btn-turno {
+    padding: 34px 70px;
+    font-size: 2.4rem;
+    border-radius: 28px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  }
+
+  /* 🔹 Modal del mismo tamaño que .info-vet */
+  .editorcaja {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 95vh;
+    padding: 40px 25px;
+    border-radius: 24px;
+    font-size: 1.4rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  }
+
+  .editorcaja h3 {
+    font-size: 2.2rem;
+    margin-bottom: 25px;
+  }
+
+  form label,
+  form input,
+  form select,
+  form textarea,
+  .btn-primary,
+  .btn {
+    font-size: 1.5rem;
+  }
+
+  .actions-row {
+    gap: 16px;
   }
 }
-  </style>
+
+
+
+</style>
 </head>
 <body>
 
- 
+   
   <section class="info-vet">
-    
-  <img src="imagenes/logo.png">
+   <img src="imagenes/logo.png"> 
 
-     
-    <h1>El chico de los Perros Veterinaria</h1>
-    <p><strong>Horario:</strong> Abierto de 15:00 a 22:00</p>
+
+    <h1>El chico de los Perros </h1>
+    <h1>Peluqueria Canina y Gatuna</h1>
+    <p><strong>Horario:</strong> Martes a Domingo</p>
+    <p><strong></strong> Abierto de 15:00 a 22:00</p>
 <div class="whatsapp-section">
   <div class="whatsapp-line">
     <img src="imagenes/wsp.png" alt="WhatsApp">
@@ -494,9 +309,18 @@
  
 </div>
 </div>
-
+<h2 style="margin-top:25px;">📍 Cómo llegar</h2>
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1315.5665200867988!2d-66.8678786!3d-29.424839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1ses!2sar!4v1729824000000!5m2!1ses!2sar" 
+      loading="lazy" 
+      allowfullscreen 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    <p><a href="https://maps.app.goo.gl/hGoaXSNzVjrxVRDT8?g_st=aw" target="_blank"></a></p>
+  
 
     <a href="#" id="btnNuevoTurno" class="btn-turno">📅 Solicitar Turno</a>
+
   </section>
 
   <!-- 🔵 MODAL NUEVO TURNO -->
@@ -522,26 +346,17 @@
           <option value="Peluquería general">Peluquería general</option>
         </select>
 
-        <label>Tipo de pago:</label>
-        <select id="tipo_pago" required>
-          <option value="No definido">No definido</option>
-          <option value="Efectivo">Efectivo</option>
-          <option value="Transferencia">Transferencia</option>
-        </select>
 
         <label>Fecha del Turno:</label>
         <input type="date" id="fecha" required>
 
         <label>Horario:</label>
         <select id="hora" required>
-          <option value="">Seleccionar...</option>
+          <option value="">Seleccionar una Fecha</option>
           <option value="15:00">15:00</option>
           <option value="16:30">16:30</option>
           <option value="18:30">18:30</option>
         </select>
-
-        <label>Notas:</label>
-        <textarea id="notas" rows="3"></textarea>
 
         <div class="actions-row" style="margin-top:10px;">
   <button type="submit" class="btn-primary">Guardar</button>
@@ -551,79 +366,267 @@
       </form>
     </div>
   </div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <!-- 🟨 Firebase -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+  import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
+  let datosTurnoActual = null;
 
-    // Configuración Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyBu8D-puwW2E5pkKsXOKYjsQr_UnqhGrqw",
-      authDomain: "veterinaria-28331.firebaseapp.com",
-      projectId: "veterinaria-28331",
-      storageBucket: "veterinaria-28331.firebasestorage.app",
-      messagingSenderId: "709696984659",
-      appId: "1:709696984659:web:08e9f2008b4195f0eb58a6",
-      databaseURL: "https://veterinaria-28331-default-rtdb.firebaseio.com"
-    };
+  // === CONFIGURACIÓN FIREBASE ===
+  const firebaseConfig = {
+    apiKey: "AIzaSyBu8D-puwW2E5pkKsXOKYjsQr_UnqhGrqw",
+    authDomain: "veterinaria-28331.firebaseapp.com",
+    projectId: "veterinaria-28331",
+    storageBucket: "veterinaria-28331.firebasestorage.app",
+    messagingSenderId: "709696984659",
+    appId: "1:709696984659:web:08e9f2008b4195f0eb58a6",
+    databaseURL: "https://veterinaria-28331-default-rtdb.firebaseio.com"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-    // Referencias
-    const modal = document.getElementById("modalTurno");
-    const btnNuevoTurno = document.getElementById("btnNuevoTurno");
-    const btnCancelar = document.getElementById("btnCancelar");
-    const form = document.getElementById("formTurno");
+  // === REFERENCIAS HTML ===
+  const modal = document.getElementById("modalTurno");
+  const btnNuevoTurno = document.getElementById("btnNuevoTurno");
+  const btnCancelar = document.getElementById("btnCancelar");
+  const form = document.getElementById("formTurno");
+  const fechaInput = document.getElementById("fecha");
+  const horaSelect = document.getElementById("hora");
 
-    // Abrir / cerrar modal
-    btnNuevoTurno.onclick = () => modal.classList.add("active");
-    btnCancelar.onclick = () => modal.classList.remove("active");
-    window.onclick = e => { if (e.target === modal) modal.classList.remove("active"); };
+  // === ABRIR / CERRAR MODAL ===
+  btnNuevoTurno.onclick = () => modal.classList.add("active");
+  btnCancelar.onclick = () => modal.classList.remove("active");
+  window.onclick = e => { if (e.target === modal) modal.classList.remove("active"); };
 
-    // Guardar turno
-    form.addEventListener("submit", e => {
-      e.preventDefault();
+  // === REGLA 1: FECHA MÁXIMA = HOY + 3 SEMANAS ===
+  const hoy = new Date();
+  const maxFecha = new Date();
+  maxFecha.setDate(hoy.getDate() + 21); // 3 semanas
 
-      const turno = {
-        dueño: document.getElementById("dueño").value.trim(),
-        perro: document.getElementById("perro").value.trim(),
-        telefono: document.getElementById("telefono").value.trim(),
-        servicio: document.getElementById("servicio").value,
-        tipo_pago: document.getElementById("tipo_pago").value,
-        fecha: document.getElementById("fecha").value,
-        hora: document.getElementById("hora").value,
-        notas: document.getElementById("notas").value.trim()
-      };
+  fechaInput.min = hoy.toISOString().split("T")[0];
+  fechaInput.max = maxFecha.toISOString().split("T")[0];
+  // === REGLA 5: NO PERMITIR LUNES ===
+fechaInput.addEventListener("input", () => {
+  const fecha = new Date(fechaInput.value + "T00:00:00");
+  const diaSemana = fecha.getDay(); // 0=Dom, 1=Lun, 2=Mar, ...
+  
+  if (diaSemana === 1) { // Lunes
+    alert("⚠️ No se pueden reservar turnos los lunes. Elegí otro día (Martes a Domingo).");
+    fechaInput.value = ""; // Limpiar selección
+  }
+});
 
-      if (!turno.dueño || !turno.perro || !turno.fecha || !turno.hora) {
-        alert("Por favor completa todos los campos obligatorios.");
+  // === REGLA 4: HORARIOS DEPENDEN DE LA FECHA ===
+  horaSelect.disabled = true;
+
+  fechaInput.addEventListener("change", () => {
+    const fechaElegida = fechaInput.value;
+    horaSelect.innerHTML = '<option value="">Seleccionar...</option>';
+    horaSelect.disabled = true;
+
+    if (!fechaElegida) return;
+
+    const refTurnos = ref(db, "turnos");
+    onValue(refTurnos, snapshot => {
+      const ocupados = [];
+      snapshot.forEach(child => {
+        const t = child.val();
+        if (t.fecha === fechaElegida) ocupados.push(t.hora);
+      });
+
+      const horarios = ["15:00", "16:30", "18:30"];
+      const disponibles = horarios.filter(h => !ocupados.includes(h));
+
+      if (disponibles.length === 0) {
+        alert("⚠️ Todos los horarios están ocupados para esta fecha.");
+        fechaInput.value = "";
         return;
       }
 
-      const refTurnos = ref(db, "turnos");
-      let duplicado = false;
+      disponibles.forEach(h => {
+        const opt = document.createElement("option");
+        opt.value = h;
+        opt.textContent = h;
+        horaSelect.appendChild(opt);
+      });
 
-      onValue(refTurnos, snapshot => {
-        snapshot.forEach(child => {
-          const t = child.val();
-          if (t.fecha === turno.fecha && t.hora === turno.hora) duplicado = true;
-        });
-      }, { onlyOnce: true });
+      horaSelect.disabled = false;
+    }, { onlyOnce: true });
+  });
 
-      setTimeout(() => {
-        if (duplicado) {
-          alert("⚠️ Ese horario ya está ocupado.");
-        } else {
-          push(ref(db, "turnos"), turno);
-          alert("✅ Turno guardado correctamente.");
-          form.reset();
-          modal.classList.remove("active");
-        }
-      }, 400);
+  // === GUARDAR TURNO ===
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const dueño = document.getElementById("dueño").value.trim();
+    const perro = document.getElementById("perro").value.trim();
+    const telefono = document.getElementById("telefono").value.trim();
+    const servicio = document.getElementById("servicio").value;
+    const tipo_pago = "No definido";
+    const fecha = fechaInput.value;
+    const hora = horaSelect.value;
+
+    if (!dueño || !perro || !telefono || !servicio || !fecha || !hora) {
+      alert("⚠️ Completa todos los campos obligatorios.");
+      return;
+    }
+
+    // === REGLA 2: VALIDAR ANTICIPACIÓN DE 6 HORAS ===
+    const [horaH, horaM] = hora.split(":").map(Number);
+    const fechaTurno = new Date(`${fecha}T${horaH.toString().padStart(2, "0")}:${horaM.toString().padStart(2, "0")}:00`);
+
+    // Convertir a hora local de Buenos Aires (UTC-3)
+    const ahora = new Date();
+    const offsetBuenosAires = -3 * 60; // minutos
+    const offsetLocal = ahora.getTimezoneOffset();
+    const diferencia = (offsetBuenosAires - offsetLocal) * 60 * 1000;
+    const ahoraBuenosAires = new Date(ahora.getTime() + diferencia);
+
+    const diffHoras = (fechaTurno - ahoraBuenosAires) / (1000 * 60 * 60);
+    if (diffHoras < 6) {
+      alert("⚠️ El turno debe reservarse con al menos 6 horas de anticipación.");
+      return;
+    }
+
+    // === REGLA 3: NO DUPLICAR ===
+    const refTurnos = ref(db, "turnos");
+    let duplicado = false;
+
+    onValue(refTurnos, snapshot => {
+      snapshot.forEach(child => {
+        const t = child.val();
+        if (t.fecha === fecha && t.hora === hora) duplicado = true;
+      });
+    }, { onlyOnce: true });
+
+    setTimeout(() => {
+      if (duplicado) {
+        alert("⚠️ Ese horario ya está ocupado.");
+      } else {
+       push(ref(db, "turnos"), { dueño, perro, telefono, servicio, tipo_pago, fecha, hora });
+       datosTurnoActual = { dueño, perro, telefono, servicio, fecha, hora };
+push(ref(db, "turnos"), { ...datosTurnoActual, tipo_pago });
+form.reset();
+horaSelect.disabled = true;
+modal.classList.remove("active");
+       form.reset();
+horaSelect.disabled = true;
+modal.classList.remove("active");
+
+// Mostrar modal de confirmación
+const modalConfirm = document.getElementById("modalConfirmacion");
+modalConfirm.classList.add("active");
+
+// Configurar botones
+document.getElementById("btnOtroTurno").onclick = () => {
+  modalConfirm.classList.remove("active");
+  modal.classList.add("active");
+};
+
+
+
+      }
+    }, 400);
+  });
+  document.getElementById("btnImprimir").onclick = async () => {
+  generarPDF(); // 🔹 llamamos a tu función más completa
+};
+
+
+// 🔸 Pegar aquí la función generarPDF
+const generarPDF = () => {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  const ancho = doc.internal.pageSize.getWidth();
+  const alto = doc.internal.pageSize.getHeight();
+
+  // ==== CUADRO MORADO ====
+  doc.setDrawColor(128, 0, 128);
+  doc.setLineWidth(2);
+  doc.rect(10, 10, ancho - 20, alto - 20);
+
+  const logo = new Image();
+  logo.src = "imagenes/logo.png";
+
+  logo.onload = function () {
+    // ==== LOGO ====
+    doc.addImage(logo, "PNG", ancho / 2 - 15, 15, 30, 30);
+
+    // ==== TÍTULO CENTRADO ====
+    doc.setTextColor(128, 0, 128);
+    doc.setFontSize(20);
+    doc.text("Turno: El Chico de los Perros", ancho / 2, 60, { align: "center" });
+
+    // ==== DATOS ====
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(14);
+
+    const t = datosTurnoActual || {
+      dueño: document.getElementById("dueño").value.trim(),
+      perro: document.getElementById("perro").value.trim(),
+      telefono: document.getElementById("telefono").value.trim(),
+      servicio: document.getElementById("servicio").value,
+      fecha: document.getElementById("fecha").value,
+      hora: document.getElementById("hora").value,
+    };
+
+    // ==== FECHA FORMATO ARG ====
+    let fechaFormateada = "";
+    if (t.fecha) {
+      const [año, mes, dia] = t.fecha.split("-");
+      fechaFormateada = `${dia}/${mes}/${año}`;
+    }
+
+    // ==== SIN TELÉFONO ====
+    const datos = [
+      ["Dueño:", t.dueño],
+      ["Mascota:", t.perro],
+      ["Servicio:", t.servicio],
+      ["Fecha:", fechaFormateada],
+      ["Hora:", t.hora],
+    ];
+
+    let y = 85;
+    datos.forEach(([titulo, valor]) => {
+      doc.setFont("helvetica", "bold");   // 🔹 título en negrita
+      doc.text(titulo, 20, y);
+
+      doc.setFont("helvetica", "normal"); // 🔹 contenido normal
+      doc.text(valor, 55, y); // el valor un poco más a la derecha
+      y += 12;
     });
-  </script>
+
+    // ==== PIE DE PÁGINA ====
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(128);
+    doc.text("Ante cualquier duda contactar al: 3804928424", 20, alto - 20);
+
+    // ==== GUARDAR ====
+    doc.save(`Turno_${t.perro}_${t.fecha}.pdf`);
+  };
+};
+
+
+
+
+</script>
+
+
+
+<!-- ✅ MODAL DE CONFIRMACIÓN -->
+<div id="modalConfirmacion" class="modal">
+  <div class="editorcaja" style="text-align:center;">
+    <h3 style="color:#6a00b6;">✅ Turno Agendado Correctamente</h3>
+    <p>Tu turno fue registrado con éxito.</p>
+    <div style="margin-top:20px;">
+      <button id="btnOtroTurno" class="btn-primary">Agendar otro Turno</button>
+      <button id="btnImprimir" class="btn">Imprimir PDF</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
-
