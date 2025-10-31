@@ -283,7 +283,15 @@ button {
     gap: 16px;
   }
 }
+  .info-vet img[src*="logo.png"] {
+    transform: scale(1.2);
+    transform-origin: center;
+  }
 
+  a[href*="maps.app.goo.gl"] img {
+    transform: scale(1.15);
+    transform-origin: center;
+  }
 
 
 </style>
@@ -309,8 +317,8 @@ button {
  
 </div>
 </div>
-<h2 style="margin-top:25px;">📍 Cómo llegar</h2>
-
+<h2 style="margin-top:25px;">📍 Apreté el mapa para ver ubicación</h2>
+<br><br>
 <a href="https://maps.app.goo.gl/dnMsS2wLVuYuow4v9?g_st=aw" target="_blank" style="display:inline-block; text-align:center;">
   <img 
     src="imagenes/ubicacion.png" 
@@ -559,13 +567,13 @@ const generarPDF = () => {
 
     // ==== TÍTULO CENTRADO ====
     doc.setTextColor(128, 0, 128);
-    doc.setFontSize(20);
+    doc.setFontSize(26);
     doc.text("Turno: El Chico de los Perros", ancho / 2, posYLogo + tamañoLogo + 15, { align: "center" });
     // 👆 El título se coloca 15 pts debajo del logo
 
     // ==== DATOS ====
     doc.setTextColor(0, 0, 0);
-    doc.setFontSize(18);
+    doc.setFontSize(22);
 
     const t = datosTurnoActual || {
       dueño: document.getElementById("dueño").value.trim(),
@@ -632,5 +640,6 @@ const generarPDF = () => {
 </div>
 </body>
 </html>
+
 
 
