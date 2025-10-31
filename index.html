@@ -46,7 +46,7 @@ body {
 
 .info-vet img {
   width: 100%;
-  max-width: 240px;
+  max-width: 400px;
   height: auto;
   margin-bottom: 10px;
 }
@@ -287,19 +287,6 @@ button {
 
 
 </style>
-  <!-- === META OPEN GRAPH PARA WHATSAPP, FACEBOOK, ETC === -->
-<meta property="og:title" content="El Chico de los Perros 🐾">
-<meta property="og:description" content="Peluquería Canina y Gatuna • Turnos online • Atención de Martes a Domingo de 15:00 a 22:00.">
-<meta property="og:image" content="https://andrufakerr.github.io/veterinaria/imagenes/logo.png">
-<meta property="og:url" content="https://andrufakerr.github.io/veterinaria/">
-<meta property="og:type" content="website">
-
-<!-- === META PARA TWITTER (opcional, también usado por WhatsApp a veces) === -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="El Chico de los Perros 🐾">
-<meta name="twitter:description" content="Peluquería Canina y Gatuna • Turnos online • Atención de Martes a Domingo de 15:00 a 22:00.">
-<meta name="twitter:image" content="https://andrufakerr.github.io/veterinaria/imagenes/logo.png">
-
 </head>
 <body>
 
@@ -323,14 +310,13 @@ button {
 </div>
 </div>
 <h2 style="margin-top:25px;">📍 Cómo llegar</h2>
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1315.5665200867988!2d-66.8678786!3d-29.424839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1ses!2sar!4v1729824000000!5m2!1ses!2sar" 
-      loading="lazy" 
-      allowfullscreen 
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-    <p><a href="https://maps.app.goo.gl/hGoaXSNzVjrxVRDT8?g_st=aw" target="_blank"></a></p>
-  
+
+<a href="https://maps.app.goo.gl/dnMsS2wLVuYuow4v9?g_st=aw" target="_blank" style="display:inline-block; text-align:center;">
+  <img 
+    src="imagenes/ubicacion.png" 
+    alt="Ubicación en Google Maps" 
+    style="width:100%; max-width:300px; border-radius:12px; box-shadow:0 0 10px rgba(0,0,0,0.2); cursor:pointer;">
+</a>
 
     <a href="#" id="btnNuevoTurno" class="btn-turno">📅 Solicitar Turno</a>
 
@@ -565,17 +551,21 @@ const generarPDF = () => {
   logo.src = "imagenes/logo.png";
 
   logo.onload = function () {
-    // ==== LOGO ====
-    doc.addImage(logo, "PNG", ancho / 2 - 15, 15, 30, 30);
+    // ==== LOGO CENTRADO ====
+    const tamañoLogo = 60;
+    const posXLogo = (ancho - tamañoLogo) / 2;
+    const posYLogo = 20; // más arriba para no chocar con el título
+    doc.addImage(logo, "PNG", posXLogo, posYLogo, tamañoLogo, tamañoLogo);
 
     // ==== TÍTULO CENTRADO ====
     doc.setTextColor(128, 0, 128);
     doc.setFontSize(20);
-    doc.text("Turno: El Chico de los Perros", ancho / 2, 60, { align: "center" });
+    doc.text("Turno: El Chico de los Perros", ancho / 2, posYLogo + tamañoLogo + 15, { align: "center" });
+    // 👆 El título se coloca 15 pts debajo del logo
 
     // ==== DATOS ====
     doc.setTextColor(0, 0, 0);
-    doc.setFontSize(14);
+    doc.setFontSize(18);
 
     const t = datosTurnoActual || {
       dueño: document.getElementById("dueño").value.trim(),
@@ -586,14 +576,12 @@ const generarPDF = () => {
       hora: document.getElementById("hora").value,
     };
 
-    // ==== FECHA FORMATO ARG ====
     let fechaFormateada = "";
     if (t.fecha) {
       const [año, mes, dia] = t.fecha.split("-");
       fechaFormateada = `${dia}/${mes}/${año}`;
     }
 
-    // ==== SIN TELÉFONO ====
     const datos = [
       ["Dueño:", t.dueño],
       ["Mascota:", t.perro],
@@ -602,13 +590,13 @@ const generarPDF = () => {
       ["Hora:", t.hora],
     ];
 
-    let y = 85;
+    // Arrancamos los datos más abajo del título
+    let y = posYLogo + tamañoLogo + 30;
     datos.forEach(([titulo, valor]) => {
-      doc.setFont("helvetica", "bold");   // 🔹 título en negrita
+      doc.setFont("helvetica", "bold");
       doc.text(titulo, 20, y);
-
-      doc.setFont("helvetica", "normal"); // 🔹 contenido normal
-      doc.text(valor, 55, y); // el valor un poco más a la derecha
+      doc.setFont("helvetica", "normal");
+      doc.text(valor, 55, y);
       y += 12;
     });
 
@@ -622,6 +610,7 @@ const generarPDF = () => {
     doc.save(`Turno_${t.perro}_${t.fecha}.pdf`);
   };
 };
+
 
 
 
@@ -643,3 +632,4 @@ const generarPDF = () => {
 </div>
 </body>
 </html>
+
